@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "producto": "zapatilla",
+        "precio": "200",
+        "imagen": "img/img.jpg"
+    },
+    {
+        "id": 2,
+        "producto": "remeras",
+        "precio": "300",
+        "imagen": "img/img2.jpg"
+    }
+]
