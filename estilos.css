@@ -1,9 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} 
+
 .div1 {
     display: flex;
     justify-content: center;
     height: 60px;
     background-color: black;
-}
+} 
 
 .div12 {
     color: aliceblue;
