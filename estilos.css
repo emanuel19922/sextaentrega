@@ -4,12 +4,6 @@
     box-sizing: border-box;
 } 
 
-.div1 {
-    display: flex;
-    justify-content: center;
-    height: 60px;
-    background-color: black;
-} 
 
 .div12 {
     color: aliceblue;
@@ -20,24 +14,35 @@
     display: flex;
     flex-wrap: wrap;
 }
-
+.divprueba{
+    width: 20%;
+}
 .divcontenedor {
+    display: flex;
+    justify-content: space-around;
+   align-items: center;
+   padding: 4%;
     margin: 20px;
+    width: 80%;
+    height: 95%;
+}
+.img{
+    border-radius: 7%;
+    padding: 8px;
 }
 
-.img {
-    width: 60px;
-}
-
-.producto {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 10px;
-}
-
-.precioproduc {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 10px;
-}
 .cantidadprod{
 width: 30px;
+}
+.imgcarrito{
+   
+}
+.divcontenedo{
+    display: flex;
+    justify-content: space-around;
+   align-items: center;
+   padding: 1%;
+    margin: 20px;
+    width: 20%;
+  
 }

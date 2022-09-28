@@ -1,87 +1,79 @@
-// simulo que el se guarda en el local sttotange
-//  agrego productos  array y los uso 
-// una vez que pones el  la cantidad te imprime en pantalla 
-//  linea 118 uso operador ternario 
 
-
-let producto = [
-  { id: 1, producto: "Huggies", precio: "2000$", imagen: "img/img.jpg" },
-  { id: 2, producto: "Babysec", precio: "1200$", imagen: "img/img2.jpg" },
-  { id: 3, producto: "Pampers", precio: "1000$", imagen: "img/img3.jpg" },
-];
-
-
-
-// simulo guardar el array en el localstorenge
-const guardarenstorange = (clave, valor) => { localStorage.setItem(clave, valor) };
-guardarenstorange("listadeprod", JSON.stringify(producto));
-
-
-
-// llamo a los datos almacenados lo recorro y lo guardo e el array que despues uso 
-const almasenados = JSON.parse(localStorage.getItem("listadeprod"));
-
-const productos = [];
-console.log(...productos)
-
-for (const objet of almasenados)
-  productos.push(objet)
-
+// const pedirpost = async()=>{
+ 
+//   const resp = await
+//   fetch('https://api.escuelajs.co/api/v1/products')
+//   const data = await resp.json()
+ 
+//   data.forEach((elemet) => {
+//     productos.push(new producto(elemet.images[0],elemet.title,elemet.price) )
+    
+//   })
+// }
+// pedirpost()
 const contenedor2 = document.querySelector(".divprueba1")
-for (const i of productos) {
 
-  const contenedor = document.createElement("div")
-  contenedor.className = "divprueba"
-  contenedor.innerHTML =
+fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=10')
+  .then(response => response.json())
+  .then((data) => {
+ 
+
+    data.forEach((elemet) => {
+      const contenedor = document.createElement("div")
+      contenedor.className = "divprueba"
+      contenedor.innerHTML =
+        `
+        <div class="divcontenedor card style=width: 18rem;"> 
+        <img class="img  card-img-top" src="${elemet.images[0]}" alt="">
+        <h3 class="producto card-title">${elemet.title}</h3>
+        <p>precio:</p>
+        <p class="precioproduc card-text"> ${elemet.price}$</p> 
+       
+         <button class="buton3 btn btn-primary" >enviar</button>
+         
+         </div>
     `
-    <div class="divcontenedor"> 
-    <img class="img" src="${i.imagen}" alt="">
-    <h3 class="producto">${i.producto}<\h3>
+    
+    
+    
+    contenedor2.appendChild(contenedor)
    
-    <p class="precioproduc">  ${i.precio}</p> 
-   
-     <button class="buton3" >enviar</button>
-     
-     </div>
-`
-
-  contenedor2.appendChild(contenedor)
+    })
+    
 
 
+ 
 
-  // const capturadecambio= contenedor.querySelector('.cantidadprod')
 
-  // capturadecambio.addEventListener('change', capturadecambios);
+// const capturadecambio= contenedor.querySelector('.cantidadprod')
 
-}
+// capturadecambio.addEventListener('change', capturadecambios);
+
 
 // aca le hago que haga click a todos los botons 
 // genero una funcion(clickdebotton)
 let boton = document.querySelectorAll(".buton3")
+console.log(boton)
 boton.forEach((boton2) => {
   boton2.addEventListener("click", clickdeboton)
 
+  function clickdeboton(e) {
+    const button = e.target;
+  
+    // con el atributo closest ingreso al div por la clase y cuando oprimo el boton me envia el mas cercano 
+    let boton2 = button.closest('.divprueba')
+    let imgprins = boton2.querySelector(".img").src;
 
+    let poductoss = boton2.querySelector(".producto").textContent;
+    let precioprod = boton2.querySelector(".precioproduc").textContent;
+    // let cantidad = boton2.querySelector(".cantidadprod").value
+
+    cArrito(imgprins, poductoss, precioprod);
+
+  }
 });
 
-function clickdeboton(e) {
-  const button = e.target;
 
-  // con el atributo closest ingreso al div por la clase y cuando oprimo el boton me envia el mas cercano 
-  let boton2 = button.closest('.divprueba')
-  let imgprins = boton2.querySelector(".img").src;
-  let poductoss = boton2.querySelector(".producto").textContent;
-  let precioprod = boton2.querySelector(".precioproduc").textContent;
-  // let cantidad = boton2.querySelector(".cantidadprod").value
-
-
-
-
-  cArrito(imgprins, poductoss, precioprod);
-
-
-
-}
 
 // aca lo pego en el carrito
 // este lo traigo del html
@@ -117,18 +109,18 @@ function cArrito(imgprins, poductoss, precioprod) {
 
   divcarrrito.innerHTML =
     `
-  <div class="divcontenedo">
+  <div class="divcontenedo card style=width: 18rem;">
 
   
-  <img class="img" src="${imgprins}" alt="">
-  <h3 id="producto" class="producto">${poductoss}</h3>
+  <img class="imgcarrito  card-img-top" src="${imgprins}" alt="">
+  <h3 id="producto" class="producto card-title">${poductoss}</h3>
   
   <p class="precioproduc">${precioprod}</p> 
  
   <input class="cantidadprod" type="number" value="1">
   <p class="precioproductotal">   </p> 
-   <button class="buton3" >enviar</button>
-   <button class="butoneliminar" >eliminar</button>
+   <button class="buton3  btn btn-primary" >enviar</button>
+   <button class="butoneliminar  btn btn-primary" >eliminar</button>
    </div>
 `
 
@@ -150,11 +142,12 @@ function totalshopingcard() {
   let cardtotal = document.querySelectorAll('.divcarrito')
   cardtotal.forEach(cardtotal => {
     const totalprecio = cardtotal.querySelector('.precioproduc')
-
+    console.log(totalprecio.textContent)
     const cardetotalprecios = Number(totalprecio.textContent.replace(
       '$',
       ''
     ))
+   
     const cantidadtotal = cardtotal.querySelector('.cantidadprod')
     const cantidadtotalparse = Number(cantidadtotal.value)
     total = total + cardetotalprecios * cantidadtotalparse
@@ -162,14 +155,29 @@ function totalshopingcard() {
 
 
   })
+  const totaldelcarritodecompras = document.querySelector('.divprueba3')
 
 
   totaldelcarritodecompras.innerHTML = `${total}
-  <button value="enviar">enviar</button> `
+  <button class="btnenviar">enviars</button> 
+   `
+  const btnenviar = document.querySelector('.btnenviar')
+  btnenviar.addEventListener('click', comprarboton)
+
+
+
+
 }
 
-const   totaldelcarritodecompras = document.querySelector('.divprueba3')
+// aca hago la cliack al boton de comprar y borro su interior cuando pongo en comprar ycon l funcion de sumar totales se borra el total 
+function comprarboton() {
 
+
+  divpruebaparcarriro.innerHTML = ""
+
+  totalshopingcard()
+
+}
 
 
 
@@ -193,8 +201,9 @@ function botoncambiodecanmtidad(e) {
 
 
 
+})
 
 
 
 
-
+// })
