@@ -29,7 +29,7 @@ fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=10')
         <p>precio:</p>
         <p class="precioproduc card-text"> ${elemet.price}$</p> 
        
-         <button class="buton3 btn btn-primary" >enviar</button>
+         <button class="buton3 btn btn-primary  " >enviar</button>
          
          </div>
     `
@@ -53,7 +53,7 @@ fetch('https://api.escuelajs.co/api/v1/products?offset=0&limit=10')
 // aca le hago que haga click a todos los botons 
 // genero una funcion(clickdebotton)
 let boton = document.querySelectorAll(".buton3")
-console.log(boton)
+
 boton.forEach((boton2) => {
   boton2.addEventListener("click", clickdeboton)
 
@@ -118,7 +118,7 @@ function cArrito(imgprins, poductoss, precioprod) {
   <p class="precioproduc">${precioprod}</p> 
  
   <input class="cantidadprod" type="number" value="1">
-  <p class="precioproductotal">   </p> 
+ 
    <button class="buton3  btn btn-primary" >enviar</button>
    <button class="butoneliminar  btn btn-primary" >eliminar</button>
    </div>
@@ -129,7 +129,7 @@ function cArrito(imgprins, poductoss, precioprod) {
 
   // declaro la funcion para el boton eliminar y usarlo despues abajo 
   divcarrrito.querySelector('.butoneliminar').addEventListener('click', botoneliminar)
-  divcarrrito.querySelector('.cantidadprod').addEventListener('change', botoncambiodecanmtidad)
+ divcarrrito.querySelector('.cantidadprod').addEventListener('change', botoncambiodecanmtidad)
 
   totalshopingcard()
 
@@ -139,27 +139,37 @@ function cArrito(imgprins, poductoss, precioprod) {
 
 function totalshopingcard() {
   let total = 0;
+  let cantidadtotalparsecarrito = 0
   let cardtotal = document.querySelectorAll('.divcarrito')
   cardtotal.forEach(cardtotal => {
     const totalprecio = cardtotal.querySelector('.precioproduc')
-    console.log(totalprecio.textContent)
+    
     const cardetotalprecios = Number(totalprecio.textContent.replace(
       '$',
       ''
     ))
    
     const cantidadtotal = cardtotal.querySelector('.cantidadprod')
-    const cantidadtotalparse = Number(cantidadtotal.value)
+  //  de aca obtengo la cantidad de productos la recorro con el foreach y la pego con el inerhtml
+  // aprovecho el foreach del total 
+   const  cantidadtotalparse = Number(cantidadtotal.value)
+   cantidadtotalparsecarrito +=cantidadtotalparse
     total = total + cardetotalprecios * cantidadtotalparse
 
 
 
   })
+
+  const spambuttom = document.getElementById('spanbutton')
+  console.log(spambuttom)
+  spambuttom.innerHTML= `${cantidadtotalparsecarrito} item`
   const totaldelcarritodecompras = document.querySelector('.divprueba3')
 
 
-  totaldelcarritodecompras.innerHTML = `${total}
-  <button class="btnenviar">enviars</button> 
+  totaldelcarritodecompras.innerHTML = `
+  <h1>Total: ${total} $</h1>   
+
+  <button class="btnenviar   btn btn-primary">enviar</button> 
    `
   const btnenviar = document.querySelector('.btnenviar')
   btnenviar.addEventListener('click', comprarboton)
@@ -191,10 +201,12 @@ function botoneliminar(e) {
 }
 // aca es la funciondee cambio de precio
 function botoncambiodecanmtidad(e) {
+  
   const cambiototal = e.target;
   if (cambiototal.value <= 0) {
     cambiototal.value = 1;
   }
+  
   totalshopingcard()
 }
 

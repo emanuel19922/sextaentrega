@@ -30,9 +30,11 @@
     border-radius: 7%;
     padding: 8px;
 }
-
+.imagenpng{
+    width: 60px;
+}
 .cantidadprod{
-width: 30px;
+width: 50px;
 }
 .imgcarrito{
    
@@ -41,8 +43,15 @@ width: 30px;
     display: flex;
     justify-content: space-around;
    align-items: center;
-   padding: 1%;
-    margin: 20px;
-    width: 20%;
   
+    margin: 20px;
+  
+  
+}
+.buton3{
+    margin: 10px;
+}
+.divclass{
+    background-color: dimgrey;
+    height: 100px;
 }
