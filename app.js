@@ -1,16 +1,11 @@
+// carrito de compras 
+// consumo una api  y genero el dom 
+// con el evento click  sumo los productos al carrito cuando apreto en el carrito(que esta en el medio ) aparece todos los productos seleccionados 
+// lo que que esta en el carrito lo guardo en el local storang asi si refrescamos la pagina sigue quedando guardado almenos que pongamos el boton de enviar que borra el local storange
+// ahi mismo suma y resta  totales dependiendo de si le ponemos o sacamos 
+// si queremos poner numeros negativos en el input esta programado para no dejar 
+// cuando ponemos enviar nos sale una alerta de a libreria de felicitaciones  tu compra realizada
 
-// const pedirpost = async()=>{
-
-//   const resp = await
-//   fetch('https://api.escuelajs.co/api/v1/products')
-//   const data = await resp.json()
-
-//   data.forEach((elemet) => {
-//     productos.push(new producto(elemet.images[0],elemet.title,elemet.price) )
-
-//   })
-// }
-// pedirpost()
 const contenedor2 = document.querySelector(".divprueba1")
 const pedirpost = async () => {
   const resp = await
@@ -23,9 +18,9 @@ const pedirpost = async () => {
 
 
   data.forEach((elemet) => {
-    const contenedor = document.createElement("div")
-    contenedor.className = "divprueba"
-    contenedor.innerHTML =
+    const Productoss = document.createElement("div")
+    Productoss.className = "divprueba"
+    Productoss.innerHTML =
       `
         <div class="divcontenedor card style=width: 18rem;"> 
         <img class="img  card-img-top" src="${elemet.images[0]}" alt="">
@@ -40,7 +35,7 @@ const pedirpost = async () => {
 
 
 
-    contenedor2.appendChild(contenedor)
+    contenedor2.appendChild(Productoss)
 
   })
 
@@ -112,18 +107,7 @@ function cArrito(imgprins, poductoss, precioprod) {
 
   carritolocalstorange.push(new todoslosprodcutos(imgprins, poductoss, precioprod))
 
-  // const guardarcarritoenlocal = (clave, valor) => { localStorage.setItem(clave, valor) };
-
-  // guardarcarritoenlocal("lista", JSON.stringify(carritolocalstorange));
-
-  // const recuperanDodatosdelcarrito = JSON.parse(localStorage.getItem("lista"))
-
-  // const Productoparseado = []
-  // console.log( Productoparseado)
-  // for (const recuperardatos of recuperanDodatosdelcarrito) {
-
-  //   Productoparseado.push(recuperardatos)
-  // }
+  
   for (let i = 0; i < Noduplicarcarrito.length; i++) {
     Noduplicarcarrito[i].textContent
     if (Noduplicarcarrito[i].textContent === poductoss) {
@@ -227,12 +211,18 @@ function totalshopingcard() {
 //cuando compro vacia el local storange con clear 
 // aca hago la cliack al boton de comprar y borro su interior cuando pongo en comprar ycon l funcion de sumar totales se borra el total 
 function comprarboton() {
-
-
+  swal({
+    title: "FELICITACIONES!",
+    text: "tu compra se realizo con exito!",
+    icon: "success",
+    button: "confirmar!",
+  });
   divpruebaparcarriro.innerHTML = ""
 
   totalshopingcard()
   localStorage.clear()
+
+
 }
 
 
@@ -295,4 +285,3 @@ function botoncambiodecanmtidad(e) {
 
 
 
-// })
